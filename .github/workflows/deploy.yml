@@ -49,6 +49,9 @@ jobs:
       - name: Build Gatsby site
         run: npm run build
 
+      - name: List build directory contents
+        run: ls -la ./public
+
       - name: Deploy to Hostinger
         env:
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -57,3 +60,12 @@ jobs:
         run: |
           sudo apt-get install lftp
           lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mirror -R ./public /public_html/blog"
+
+      - name: List Hostinger directory contents
+        env:
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+        run: |
+          sudo apt-get install lftp
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; ls /public_html/blog"
