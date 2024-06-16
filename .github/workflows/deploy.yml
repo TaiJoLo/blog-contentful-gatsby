@@ -38,6 +38,13 @@ jobs:
           echo "CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}" >> $GITHUB_ENV
           echo "CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}" >> $GITHUB_ENV
           echo "CONTENTFUL_HOST=${{ secrets.CONTENTFUL_HOST }}" >> $GITHUB_ENV  # Only if using a custom host
+        shell: bash
+
+      - name: Verify environment variables
+        run: |
+          echo "CONTENTFUL_SPACE_ID=$CONTENTFUL_SPACE_ID"
+          echo "CONTENTFUL_ACCESS_TOKEN=$CONTENTFUL_ACCESS_TOKEN"
+          echo "CONTENTFUL_HOST=$CONTENTFUL_HOST"
 
       - name: Build Gatsby site
         run: npm run build
@@ -49,4 +56,4 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
           sudo apt-get install lftp
-          lftp -c "open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mirror -R ./public /public_html/blog"
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mirror -R ./public /public_html/blog"
