@@ -52,6 +52,15 @@ jobs:
       - name: List build directory contents
         run: ls -la ./public
 
+      - name: Clean Hostinger blog directory
+        env:
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+        run: |
+          sudo apt-get install lftp
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; rm -r /public_html/blog/*"
+
       - name: Deploy to Hostinger
         env:
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -61,7 +70,7 @@ jobs:
           sudo apt-get install lftp
           lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mirror -R ./public /public_html/blog"
 
-      - name: List Hostinger directory contents
+      - name: List Hostinger blog directory contents
         env:
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
