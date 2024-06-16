@@ -52,6 +52,15 @@ jobs:
       - name: List build directory contents
         run: ls -la ./public
 
+      - name: Ensure blog directory exists on Hostinger
+        env:
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+        run: |
+          sudo apt-get install lftp
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mkdir -p /public_html/blog"
+
       - name: Clean Hostinger blog directory
         env:
           FTP_USER: ${{ secrets.FTP_USER }}
