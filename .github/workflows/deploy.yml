@@ -59,7 +59,7 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
           sudo apt-get install lftp
-          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mkdir -p blog"
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mkdir -p /public_html/blog"
 
       - name: Clean Hostinger blog directory
         env:
@@ -68,7 +68,7 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
           sudo apt-get install lftp
-          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; rm -rf blog/*"
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; rm -rf /public_html/blog/*"
 
       - name: Deploy to Hostinger
         env:
@@ -77,7 +77,7 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
           sudo apt-get install lftp
-          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mirror -R ./public blog"
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; mirror -R ./public /public_html/blog"
 
       - name: List Hostinger blog directory contents
         env:
@@ -86,4 +86,4 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
         run: |
           sudo apt-get install lftp
-          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; ls blog"
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USER,$FTP_PASSWORD $FTP_HOST; ls /public_html/blog"
