@@ -14,23 +14,30 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3 # Ensure this is v3
+        uses: actions/checkout@v3
 
       - name: Clear npm cache
         run: npm cache clean --force
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3 # Ensure this is v3
+        uses: actions/setup-node@v3
         with:
-          node-version: '20' # Ensure this is set to 20
+          node-version: '20'
 
       - name: Verify Node.js version
-        run: node -v # Verify the Node.js version
+        run: node -v
+
       - name: Verify npm version
-        run: npm -v # Verify the npm version
+        run: npm -v
 
       - name: Install dependencies
         run: npm install
+
+      - name: Set up environment variables
+        run: |
+          echo "CONTENTFUL_SPACE_ID=${{ secrets.CONTENTFUL_SPACE_ID }}" >> $GITHUB_ENV
+          echo "CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }}" >> $GITHUB_ENV
+          echo "CONTENTFUL_HOST=${{ secrets.CONTENTFUL_HOST }}" >> $GITHUB_ENV  # Only if using a custom host
 
       - name: Build Gatsby site
         run: npm run build
