@@ -14,12 +14,20 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3 # Ensure this is v3
+
+      - name: Clear npm cache
+        run: npm cache clean --force
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3 # Ensure this is v3
         with:
-          node-version: '14'
+          node-version: '20' # Ensure this is set to 20
+
+      - name: Verify Node.js version
+        run: node -v # Verify the Node.js version
+      - name: Verify npm version
+        run: npm -v # Verify the npm version
 
       - name: Install dependencies
         run: npm install
