@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import get from 'lodash/get'
+
 import Seo from '../components/seo'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
@@ -24,14 +25,14 @@ export default BlogIndex
 
 export const pageQuery = graphql`
   query BlogIndexQuery {
-    allContentfulBlogPost(sort: { fields: publishDate, order: DESC }) {
+    allContentfulBlogPost(sort: { publishDate: DESC }) {
       nodes {
         title
         slug
         publishDate(formatString: "MMMM Do, YYYY")
         tags
         heroImage {
-          gatsbyImageData(
+          gatsbyImage(
             layout: FULL_WIDTH
             placeholder: BLURRED
             width: 424
