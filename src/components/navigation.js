@@ -11,14 +11,14 @@ const Navigation = () => (
     </Link>
     <ul className={styles.navigation}>
       <li className={styles.navigationItem}>
-        <Link to="/" activeClassName="active">
+        <a href="https://laurenlo.me/" className="text-black">
           Home
-        </Link>
+        </a>
       </li>
       <li className={styles.navigationItem}>
-        <Link to="/blog/" activeClassName="active">
+        <a href="https://laurenlo-blog.netlify.app" className="text-black">
           Blog
-        </Link>
+        </a>
       </li>
     </ul>
   </nav>
