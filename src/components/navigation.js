@@ -6,18 +6,12 @@ import * as styles from './navigation.module.css'
 const Navigation = () => (
   <nav role="navigation" className={styles.container} aria-label="Main">
     <Link to="/" className={styles.logoLink}>
-      <span className={styles.logo} />
-      <span className={styles.navigationItem}></span>
+      <span className={styles.navigationItem}>Digtal Garden</span>
     </Link>
     <ul className={styles.navigation}>
       <li className={styles.navigationItem}>
         <a href="https://laurenlo.me/" className="text-black">
-          Home
-        </a>
-      </li>
-      <li className={styles.navigationItem}>
-        <a href="https://laurenlo-blog.netlify.app" className="text-black">
-          Blog
+          Portfolio
         </a>
       </li>
     </ul>
